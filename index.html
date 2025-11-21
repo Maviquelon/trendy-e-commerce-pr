@@ -1,0 +1,251 @@
+
+            <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Sneaker Product Page</title><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"><header class="site-header"><div class="header-container"><a href="#" class="logo">SneakerFlow</a><nav class="main-nav"><ul class="nav-list"><li class="nav-item"><a href="#" class="nav-link">New Arrivals</a></li><li class="nav-item"><a href="#" class="nav-link">Men</a></li><li class="nav-item"><a href="#" class="nav-link">Women</a></li><li class="nav-item"><a href="#" class="nav-link">Sale</a></li></ul></nav><div class="nav-icons"><button class="search-btn" aria-label="Search"><i class="fas fa-search"></i></button><a href="#" class="cart-icon" aria-label="Shopping Cart"><i class="fas fa-shopping-cart"></i><span class="cart-count">0</span></a><button class="hamburger-menu" aria-label="Open menu"><i class="fas fa-bars"></i></button></div></div></header><main><section class="product-detail-section"><div class="product-container"><div class="product-image-gallery"><div class="main-image-wrapper"><img id="mainProductImage" src="https://picsum.photos/id/1015/800/600" alt="Nike Air Max 270 React" class="main-product-image"></div><div class="thumbnail-gallery"><img src="https://picsum.photos/id/1015/150/112" alt="Thumbnail 1" class="thumbnail active" data-full="https://picsum.photos/id/1015/800/600"><img src="https://picsum.photos/id/1016/150/112" alt="Thumbnail 2" class="thumbnail" data-full="https://picsum.photos/id/1016/800/600"><img src="https://picsum.photos/id/1018/150/112" alt="Thumbnail 3" class="thumbnail" data-full="https://picsum.photos/id/1018/800/600"><img src="https://picsum.photos/id/1019/150/112" alt="Thumbnail 4" class="thumbnail" data-full="https://picsum.photos/id/1019/800/600"></div></div><div class="product-info"><h1 class="product-title" id="productTitle">Nike Air Max 270 React</h1><p class="product-category">Men's Lifestyle Shoe</p><div class="price-rating"><span class="product-price" id="productPrice">$150.00</span><div class="product-rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><span>(4.5)</span></div></div><p class="product-description" id="productDescription">The Nike Air Max 270 React uses lightweight, layered no-sew materials to create a modern aesthetic that looks as good as it feels. The Max Air unit and full Nike React foam midsole deliver unrivaled comfort all day long. This colorway features vibrant red and black accents for a bold statement.</p><div class="product-options"><div class="size-selector"><label for="size-select">Select Size:</label><div class="size-options" id="sizeOptions"><button class="size-btn active" data-size="7">7</button><button class="size-btn" data-size="8">8</button><button class="size-btn" data-size="9">9</button><button class="size-btn" data-size="10">10</button><button class="size-btn" data-size="11">11</button><button class="size-btn" data-size="12">12</button></div></div><div class="quantity-selector"><label for="quantity">Quantity:</label><div class="quantity-control"><button id="decrementBtn" class="quantity-btn">-</button><input type="number" id="quantityInput" value="1" min="1" max="10" readonly=""><button id="incrementBtn" class="quantity-btn">+</button></div></div></div><button id="addToCartBtn" class="add-to-cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</button></div></div></section><section class="related-products-section"><h2 class="section-title">You Might Also Like</h2><div class="related-products-grid"><div class="product-card"><img src="https://picsum.photos/id/200/300/225" alt="Related Product 1"><h3 class="card-title">Running Sneaker Pro</h3><p class="card-price">$120.00</p><button class="card-btn">View Product</button></div><div class="product-card"><img src="https://picsum.photos/id/201/300/225" alt="Related Product 2"><h3 class="card-title">Urban Walkers</h3><p class="card-price">$95.00</p><button class="card-btn">View Product</button></div><div class="product-card"><img src="https://picsum.photos/id/202/300/225" alt="Related Product 3"><h3 class="card-title">Classic Canvas</h3><p class="card-price">$80.00</p><button class="card-btn">View Product</button></div></div></section></main><footer class="site-footer"><div class="footer-container"><div class="footer-column"><h3 class="footer-heading">SneakerFlow</h3><p style="font-size: 12px;">Your ultimate destination for the latest and greatest sneakers.</p></div><div class="footer-column"><h3 class="footer-heading">Quick Links</h3><ul><li><a href="#">About Us</a></li><li><a href="#">Contact</a></li><li><a href="#">FAQ</a></li><li><a href="#">Shipping</a></li></ul></div><div class="footer-column"><h3 class="footer-heading">Follow Us</h3><div class="social-links"><a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a><a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a><a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a></div></div></div><div class="footer-bottom"><p>© 2023 SneakerFlow. All rights reserved.</p></div></footer><div id="toastNotification" class="toast-notification"></div><script src="script.js"></script>
+            <script>
+              try {
+                document.addEventListener('DOMContentLoaded', () => {const header = document.querySelector('.site-header');const hamburgerMenu = document.querySelector('.hamburger-menu');const navList = document.querySelector('.nav-list');const mainProductImage = document.getElementById('mainProductImage');const thumbnails = document.querySelectorAll('.thumbnail');const sizeOptions = document.getElementById('sizeOptions');const sizeButtons = document.querySelectorAll('.size-btn');const quantityInput = document.getElementById('quantityInput');const incrementBtn = document.getElementById('incrementBtn');const decrementBtn = document.getElementById('decrementBtn');const addToCartBtn = document.getElementById('addToCartBtn');const cartCount = document.querySelector('.cart-count');const toastNotification = document.getElementById('toastNotification');let currentCartCount = 0;// --- Sticky Header ---window.addEventListener('scroll', () => {if (window.scrollY > 0) {header.classList.add('scrolled');} else {header.classList.remove('scrolled');}});// --- Hamburger Menu Toggle ---hamburgerMenu.addEventListener('click', () => {navList.classList.toggle('active');hamburgerMenu.querySelector('i').classList.toggle('fa-bars');hamburgerMenu.querySelector('i').classList.toggle('fa-times');});// --- Image Gallery Functionality ---thumbnails.forEach(thumbnail => {thumbnail.addEventListener('click', () => {mainProductImage.src = thumbnail.dataset.full;thumbnails.forEach(t => t.classList.remove('active'));thumbnail.classList.add('active');});});// --- Size Selection ---sizeOptions.addEventListener('click', (event) => {if (event.target.classList.contains('size-btn')) {sizeButtons.forEach(btn => btn.classList.remove('active'));event.target.classList.add('active');}}); // --- Quantity Control ---incrementBtn.addEventListener('click', () => {let currentValue = parseInt(quantityInput.value);if (currentValue < parseInt(quantityInput.max)) {quantityInput.value = currentValue + 1;}});decrementBtn.addEventListener('click', () => {let currentValue = parseInt(quantityInput.value);if (currentValue > parseInt(quantityInput.min)) {quantityInput.value = currentValue - 1;}});// --- Add to Cart Functionality ---addToCartBtn.addEventListener('click', () => {const selectedSize = document.querySelector('.size-btn.active')?.dataset.size || 'N/A';const quantity = parseInt(quantityInput.value);const productName = document.getElementById('productTitle').innerText;const productPrice = document.getElementById('productPrice').innerText;if (selectedSize === 'N/A') {showToast('Please select a size!', 'error');return;}currentCartCount += quantity;cartCount.textContent = currentCartCount;showToast(`${quantity} x ${productName} (Size: ${selectedSize}) added to cart!`);console.log({productName,selectedSize,quantity,productPrice});});// --- Toast Notification ---function showToast(message, type = 'success') {toastNotification.textContent = message;toastNotification.className = 'toast-notification show'; // Reset classesif (type === 'error') {toastNotification.style.backgroundColor = '#f44336';} else {toastNotification.style.backgroundColor = '#4caf50';}setTimeout(() => {toastNotification.classList.remove('show');}, 3000);}}); 
+              } catch (err) {
+                console.error('Runtime script error:', err);
+              }
+            </script>
+            
+        <script>
+          (function() {
+            console.log('Initializing Imagineflow Visual Editor...');
+            let draggedElement = null;
+            let selectedElement = null;
+            
+            let style = document.createElement('style');
+            style.textContent = `
+              .vc-hover { outline: 2px dashed #8b5cf6 !important; cursor: grab; }
+              .vc-selected { outline: 2px solid #8b5cf6 !important; }
+              .vc-dragging { opacity: 0.5; outline: 2px dashed #8b5cf6; }
+              [contenteditable="true"] { outline: 2px solid #3b82f6 !important; cursor: text; }
+              img.vc-hover { cursor: pointer; outline: 2px solid #ec4899 !important; }
+              body { padding-bottom: 50px; }
+            `;
+            document.head.appendChild(style);
+
+            function isBlock(el) {
+              if (!el || el === document.body || el.nodeType !== 1) return false;
+              const style = window.getComputedStyle(el);
+              return ['block', 'flex', 'grid', 'article', 'section', 'div', 'nav', 'header', 'footer', 'main', 'img', 'h1', 'h2', 'h3', 'p', 'button', 'a', 'span'].includes(style.display) 
+                || el.tagName === 'SECTION' 
+                || el.tagName === 'DIV' 
+                || el.tagName === 'IMG';
+            }
+            
+            function sendSelectedStyles(el) {
+               if(!el) {
+                 window.parent.postMessage({ type: 'ELEMENT_SELECTED', payload: null }, '*');
+                 return;
+               }
+               
+               // Generate a unique ID if not present for style application later
+               if (!el.id) {
+                 el.id = 'vc-' + Math.random().toString(36).substr(2, 9);
+               }
+
+               const computed = window.getComputedStyle(el);
+               const styleData = {
+                  tagName: el.tagName,
+                  id: el.id,
+                  classes: Array.from(el.classList).filter(c => !c.startsWith('vc-')),
+                  computed: {
+                     color: computed.color,
+                     backgroundColor: computed.backgroundColor,
+                     fontSize: computed.fontSize,
+                     padding: computed.padding,
+                     margin: computed.margin,
+                     borderRadius: computed.borderRadius,
+                     borderWidth: computed.borderWidth,
+                     borderColor: computed.borderColor,
+                     textAlign: computed.textAlign,
+                     fontWeight: computed.fontWeight,
+                     display: computed.display
+                  }
+               };
+               
+               window.parent.postMessage({ type: 'ELEMENT_SELECTED', payload: styleData }, '*');
+            }
+
+            // --- Hover Effects ---
+            document.body.addEventListener('mouseover', (e) => {
+              if (document.body.getAttribute('data-editing-text') === 'true') return;
+              if (isBlock(e.target)) {
+                e.target.classList.add('vc-hover');
+                if (e.target.tagName !== 'IMG') e.target.setAttribute('draggable', 'true');
+              }
+            });
+
+            document.body.addEventListener('mouseout', (e) => {
+              if (e.target.classList) {
+                e.target.classList.remove('vc-hover');
+              }
+            });
+            
+            // --- Selection for Deletion & Styling ---
+            document.body.addEventListener('click', (e) => {
+               if(document.body.getAttribute('data-editing-text') === 'true') return;
+               
+               // Handle Deselect
+               if (selectedElement) selectedElement.classList.remove('vc-selected');
+               
+               // If clicking container background, deselect
+               if (e.target === document.body) {
+                  selectedElement = null;
+                  sendSelectedStyles(null);
+                  return;
+               }
+               
+               if(isBlock(e.target)) {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  selectedElement = e.target;
+                  selectedElement.classList.add('vc-selected');
+                  sendSelectedStyles(selectedElement);
+               } else {
+                  selectedElement = null;
+                  sendSelectedStyles(null);
+               }
+            });
+            
+            // --- Keyboard Actions (Delete) ---
+            window.addEventListener('keydown', (e) => {
+               if ((e.key === 'Delete' || e.key === 'Backspace') && selectedElement) {
+                  if(document.body.getAttribute('data-editing-text') === 'true') return;
+                  
+                  selectedElement.remove();
+                  selectedElement = null;
+                  sendSelectedStyles(null);
+                  notifyChange();
+               }
+            });
+
+            // --- Drag & Drop Logic ---
+            document.body.addEventListener('dragstart', (e) => {
+              if (e.target.getAttribute('contenteditable') === 'true') return; 
+              if (e.target.tagName === 'IMG') return; // Don't drag images standard way, confuses click
+              
+              draggedElement = e.target;
+              e.target.classList.add('vc-dragging');
+              e.dataTransfer.effectAllowed = 'move';
+            });
+
+            document.body.addEventListener('dragend', (e) => {
+              if (e.target.classList) e.target.classList.remove('vc-dragging');
+              draggedElement = null;
+              notifyChange();
+            });
+
+            document.body.addEventListener('dragover', (e) => {
+              e.preventDefault();
+              e.dataTransfer.dropEffect = 'move';
+            });
+
+            document.body.addEventListener('drop', (e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              const target = e.target;
+              
+              if (draggedElement && target && target !== draggedElement && target.parentNode) {
+                if (draggedElement.contains(target)) return;
+
+                const rect = target.getBoundingClientRect();
+                const next = (e.clientY - rect.top) / (rect.bottom - rect.top) > 0.5;
+                
+                if(target === document.body) {
+                    document.body.appendChild(draggedElement);
+                } else {
+                    target.parentNode.insertBefore(draggedElement, next ? target.nextSibling : target);
+                }
+                notifyChange();
+              }
+            });
+
+            // --- Text Editing Logic ---
+            document.body.addEventListener('dblclick', (e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              const target = e.target;
+              
+              // Image Handling
+              if (target.tagName === 'IMG') {
+                 // Send message to parent to open uploader
+                 window.parent.postMessage({
+                    type: 'REQUEST_IMAGE_EDIT',
+                    currentSrc: target.src,
+                    elementId: target.id || 'img-' + Math.random().toString(36).substr(2, 9)
+                 }, '*');
+                 
+                 // Assign temp ID if needed so we can find it later
+                 if(!target.id) target.id = 'vc-editing-img';
+                 return;
+              }
+              
+              if (!target.children.length || ['H1','H2','H3','H4','P','SPAN','A','BUTTON', 'LI'].includes(target.tagName)) {
+                target.contentEditable = "true";
+                target.focus();
+                document.body.setAttribute('data-editing-text', 'true');
+                target.classList.remove('vc-hover'); 
+              }
+            });
+
+            document.body.addEventListener('blur', (e) => {
+              if (e.target.isContentEditable) {
+                e.target.contentEditable = "false";
+                document.body.setAttribute('data-editing-text', 'false');
+                notifyChange();
+              }
+            }, true);
+
+            // Prevent link navigation during edit mode
+            document.body.addEventListener('click', (e) => {
+              if(e.target.closest('a')) {
+                e.preventDefault();
+              }
+            });
+
+            // Listen for messages from parent
+            window.addEventListener('message', (event) => {
+               if (event.data.type === 'UPDATE_IMAGE') {
+                  const img = document.getElementById(event.data.elementId) || document.getElementById('vc-editing-img');
+                  if(img) {
+                     img.src = event.data.newSrc;
+                     if(img.id === 'vc-editing-img') img.removeAttribute('id');
+                     notifyChange();
+                  }
+               }
+               
+               if (event.data.type === 'APPLY_STYLE') {
+                  const { id, property, value } = event.data;
+                  const el = document.getElementById(id);
+                  if(el) {
+                     el.style[property] = value;
+                     notifyChange();
+                  }
+               }
+            });
+
+            function notifyChange() {
+              const cleanBody = document.body.cloneNode(true);
+              const elements = cleanBody.querySelectorAll('*');
+              elements.forEach(el => {
+                 el.classList.remove('vc-hover', 'vc-selected', 'vc-dragging');
+                 el.removeAttribute('draggable');
+                 el.removeAttribute('contenteditable');
+                 if(el.id && el.id.startsWith('vc-')) el.removeAttribute('id');
+                 if(el.getAttribute('class') === '') el.removeAttribute('class');
+                 // We KEEP inline styles for the export so the changes persist!
+              });
+              
+              window.parent.postMessage({
+                type: 'HTML_UPDATE',
+                html: cleanBody.innerHTML
+              }, '*');
+            }
+          })();
+        </script>
+      
+          
+        
+      
